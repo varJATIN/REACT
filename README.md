@@ -2051,7 +2051,7 @@ What code could be there in React.memo()
 
 function memo(Child) {
 		if(nextProps... != props...) {
-				return Child.render();
+				return Child();
 		} 
 		return;
 }
@@ -2495,8 +2495,205 @@ function App() {
 
 ReactDOM.render(<App /> , document.getElementById("root"))
 
+================================
+
+let initState = {
+	cart:[],
+	total: 0
+}
+
+let cartReducer = (state, action) => {
+	switch(action.type) {
+		case "ADD_TO_CART":
+			return {
+				cart : state.cart.push(action.payload),
+				total: state.cart.map(p => p.price).reduce(0.0, (v1,v2) => v1+ v2)
+			},
+		case "REMOVE_ALL":
+		return {
+			cart: []
+		}
+	}
+}
+
+===================
+
+4) React.useEffect() can be used to implement methods similar component lifecycle methods
+
+	The Effect Hook lets you perform side effects in function components
+
+	Data fetching, setting up a subscription, and manually changing the DOM in React components are all examples of side effects. 
+
+
+ // componentDidUpdate
+  React.useEffect( () => {
+      console.log("1. effect", count);
+  });
+  
+  // componentDidMount
+  React.useEffect( () => {
+      console.log("2. effect", count);
+  },[]);
+
+
+   React.useEffect( () => {
+      console.log("3. effect", count);
+  },[count]);
+
+   React.useEffect( () => {
+      console.log("4. effect", count);
+  },[user]);
+
+  ===
+
+  function App() {
+	let [count, setCount] = React.useState(0);
+	let [user, setUser] = React.useState("Banu");
+  
+  // componentDidUpdate
+  React.useEffect( () => {
+      console.log("1. effect", count);
+  });
+  
+  // componentdidMount 
+  React.useEffect( () => {
+      console.log("2. effect", count);
+  },[]);
+  
+  // call only if "count" dependecy changes
+   React.useEffect( () => {
+      console.log("3. effect", count);
+  },[count]);
+  
+  // call this only if "user" dependecny changes
+   React.useEffect( () => {
+      console.log("4. effect", count);
+  },[user]);
+	return(
+			<>
+					Count { count} {user} <br />
+					<button onClick={() => setCount(count + 1)}>Click</button>
+			</>
+	)
+}
+
+ReactDOM.render(<App /> , document.getElementById("root"));
+
 ==============
 
+5) React.memo() ==> not a React Hook, but HOC for avoiding re-render of functional components
+shouldComponentUpdate() or extends React.PureComponent
 
-	
+function Button({ handleClick, children }) {
+  console.log('Rendering button - ', children)
+  return (
+    <button onClick={handleClick}>
+      {children}
+    </button>
+  )
+}
 
+const MemoButton = React.memo(Button);
+
+const MemoButton = React.memo(Button, function (prevProps, nextProps ) {
+
+
+});
+
+Memoize of Button is not preventing Button from re-rendering
+
+6) React.useCallback()
+useCallback will return a memoized version of the callback that only changes if one of the dependencies has changed. 
+
+ const incrementAge = React.useCallback(() => {
+		setAge(age + 1)
+	}, [age]);
+
+	const incrementSalary =  React.useCallback(() => {
+   		setSalary(salary + 1000)
+	},[salary]);
+
+===
+
+
+function Title() {
+  console.log('Rendering Title')
+  return (
+    <h2>
+      Example: Title
+    </h2>
+  )
+};
+
+const MemoTitle = React.memo(Title);
+
+function Button({ handleClick, children }) {
+  console.log('Rendering button - ', children)
+  return (
+    <button onClick={handleClick}>
+      {children}
+    </button>
+  )
+}
+
+const MemoButton = React.memo(Button);
+
+function Count({ text, count }) {
+	console.log(`Rendering ${text}`)
+	return <div>{text} - {count}</div>
+}
+
+const MemoCount = React.memo(Count);
+
+function ParentComponent() {
+	const [age, setAge] = React.useState(25)
+	const [salary, setSalary] = React.useState(50000)
+
+	 const incrementAge = React.useCallback(() => {
+		setAge(age + 1)
+	}, [age]);
+
+	const incrementSalary =  React.useCallback(() => {
+   		setSalary(salary + 1000)
+	},[salary]);
+  
+	return (
+		<div>
+			<MemoTitle />
+			<MemoCount text="Age" count={age} />
+			<MemoButton handleClick={incrementAge}>Increment Age</MemoButton>
+			<MemoCount text="Salary" count={salary} />
+			<MemoButton handleClick={incrementSalary}>Increment Salary</MemoButton>
+		</div>
+	)
+}
+
+ReactDOM.render(<ParentComponent/>, document.getElementById("root"));
+
+=======
+
+npx create-react-app my-app --template redux
+
+ 
+
+React Hooks:
+1) useState() 
+2) useReducer() => if complex state and conditional update of state using ACTION and dispatch
+3) useContext() ==> simplifies using ReactContext Consumer
+4) useEffect() ==> functionalities similar to component life cycle
+5) useCallBack() ==> to memoize the callback function
+
+
+====
+
+React.memo() ==> memoize state ==> not a Hook ==> HOC
+
+=========================
+
+State Management with Redux
+
+Redux:
+
+shoppinglist-base.zip ==> extract
+
+where package.json> npm i
