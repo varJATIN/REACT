@@ -2697,3 +2697,16 @@ Redux:
 shoppinglist-base.zip ==> extract
 
 where package.json> npm i
+
+Actions ==> ADD, REMOVE and REMOVE_ALL
+
+===========
+
+npm i redux react-redux
+
+==============================
+
+Redux Middleware
+
+==================== 
+
