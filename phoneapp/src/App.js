@@ -4,12 +4,16 @@ import './App.css';
 import Navbar from './components/Navbar';
 import ProductList from './components/ProductList';
 import Details from './components/Details';
-import Cart from './components/Cart';
+// import Cart from './components/Cart';
 import Default from './components/Default';
+import React, { Suspense } from 'react';
+
+const Cart = React.lazy(() => import('./components/Cart'));
 
 function App() {
   return (
    <>
+  <Suspense fallback={<h1>Loading.....</h1>}>
   <Router>
     <Navbar />
     <Switch>
@@ -20,6 +24,7 @@ function App() {
       <Route default component={Default} />
     </Switch>
   </Router>
+  </Suspense>
    </>
   );
 }

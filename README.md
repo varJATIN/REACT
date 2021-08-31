@@ -2336,3 +2336,167 @@ headers: {'Authorization': 'Bearer: tokenvalue'} ==> JWT Token
 
 ======================================
 
+Day 6
+
+------
+
+* react-router-dom ==> SPA
+* styled-components ==> Button ==> Component with CSS based on props	
+* React Context ==> Provider, Consumer, React.useContext() ==> Hook to simplify using  Consumer in functional Component 
+	==> Goal of React Context is avoid passing props thro intermediary component
+
+* json-server to fake REST APi
+
+==> main.chunk.js ==> having all your components
+==> vendor..js ==> having modules from "node_modules"
+==> bundle.js ==> react specific
+
+==> Lazy loading of components based on Routes
+
+video templates => default state ==> video, name, .. [] constructor ==> render
+componentDidMount() ==> API call ==> pull the data from server update the state
+
+<Suspense>
+<SuspenseList> ==> many lazy loading ==> order [ top down, bottom to up, concurrently]
+======================================================
+
+ErrorBoundary Component:
+
+class ErrorBoundary extends React.Component {
+	state = {
+		error: null,
+		errorInfo : '',
+		hasError: false
+	}
+ 
+  componentDidCatch(error, errorInfo) {
+    this.setState({
+    		hasError: true,
+    		error,
+    		errorInfo
+    });
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return <h1>Something went wrong.</h1>;
+    }
+    return this.props.children; 
+  }
+}
+
+<ErrorBoundary>
+  <A />
+  <B/>
+</ErrorBoundary>
+
+<ErrorBoundary>
+  <C />
+</ErrorBoundary>
+
+==============
+
+React Hooks:
+
+Hooks are a new addition in React 16.8. 
+They let you use state and other React features in functional component without writing a class.
+* class component has life cycle method
+* class component can have state and behaviour
+
+* class MyComponent extends React.Component {} // inheritance
+
+* class Component still used in ErrorBoundary , Context Provider, HOC, ..
+
+
+React Hooks:
+1) React.useContext() 
+  let {products} = React.useContext(ProductContext);
+
+  instead of in class component:
+
+   <ProductConsumer>
+                          {
+                              value => {
+                                  return value.products.map(p => <Product key={p.id} product={p} />)
+                              }
+                          }
+   </ProductConsumer>
+
+2) React.useState()
+
+function App() {
+	let [count, setCount] = React.useState(0);
+	let [user, setUser] = React.useState("Banu");
+
+	return(
+			<>
+					Count { count} {user} <br />
+					<button onClick={() => setCount(count + 1)}>Click</button>
+			</>
+	)
+}
+
+ReactDOM.render(<App /> , document.getElementById("root"))
+
+3) React.useReducer()
+	==> state is complex ==> as in customer has json data  with association with order and address.
+	==> Conditionally update the state
+		Example: cart[{},{},  {}] is a state
+		ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL
+
+		---
+		Reducer will have state
+		Reducer needs Action, which  will be in the form of:
+		payload is product
+		{
+			"type": "ADD_TO_CART",
+			payload
+		}
+
+		No Payload
+		{
+			"type": "REMOVE_ALL"
+		}
+
+		payload will be id
+		{
+			type: "REMOVE_FORM_CART",
+			payload
+		}
+
+		============
+
+let initialState = {count : 0};
+
+// reducer function 
+let countReducer = (state, action) => {
+			switch(action.type) {
+				case "INCREMENT" : return {count : state.count + action.payload};
+				case "DECREMENT": return {count: state.count - 1};
+				default: return state;
+			}
+}
+
+function App() {
+	let [state, dispatch] = React.useReducer(countReducer, initialState);
+  
+  function handleIncrement() {
+    let action = {"type": "INCREMENT", payload: 10}
+		dispatch(action);
+  }
+	return(
+			<>
+					Count { state.count}   <br />
+					<button onClick={() => handleIncrement()}>Click</button>
+			</>
+	)
+}
+
+ReactDOM.render(<App /> , document.getElementById("root"))
+
+==============
+
+
+	
+
