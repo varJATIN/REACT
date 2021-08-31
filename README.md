@@ -2710,3 +2710,164 @@ Redux Middleware
 
 ==================== 
 
+Thunk
+
+thunkexample.zip
+extract ==>
+folder => npm i
+
+ ==> project contains thunk middleware and axios [ npm i axios redux-thunk]
+
+===
+Steps:
+
+1) npx create-react-app thunkexample
+2) folder> npm i redux react-redux axios thunk redux-thunk
+
+3) Actions.js
+export const FETCH_USERS_REQUEST  ="fetch_request";
+export const FETCH_USERS_SUCCESS  ="fetch_success";
+export const FETCH_USERS_FAILURE  ="fetch_failure";
+
+4) ActionCreators.js
+
+import {FETCH_USERS_REQUEST, FETCH_USERS_SUCCESS,  FETCH_USERS_FAILURE} from './Actions';
+
+export const fetchUsersRequest = () => {
+	return {
+		type: FETCH_USERS_REQUEST
+	}
+}
+
+export const fetchUsersSuccess = (users) => {
+	return {
+		type: FETCH_USERS_SUCCESS,
+		payload: users
+	}
+}
+
+export const fetchUsersFailure = (error) => {
+	return {
+		type: FETCH_USERS_FAILURE,
+		payload: error
+	}
+}
+
+5) 
+import {FETCH_USERS_REQUEST, FETCH_USERS_SUCCESS,  FETCH_USERS_FAILURE} from './Actions';
+
+const initialState = {
+	loading : false,
+	users: [],
+	error: ""
+}
+
+export const userReducer = (state = initialState, action) => {
+	switch(action.type) {
+		case FETCH_USERS_REQUEST: 
+			return {
+				...state,
+				loading : true
+			}
+		case FETCH_USERS_SUCCESS:
+			return {
+				loading : false,
+                users: action.payload,
+                error: ''
+			}
+		case FETCH_USERS_FAILURE:
+				return {
+				loading : false,
+				users: [],
+				error: action.payload
+            }
+        default:
+            return state;
+	}
+}
+
+https://medium.com/@ethan.reid.roberts/stuck-in-the-middleware-with-you-c667acb01fc
+
+React Redux Hooks:
+import {useSelector, useDispatch} from 'react-redux';
+ useSelector() ==> mapStateToProps()
+ useDispatch() ==> mapDispatchtoProps()
+
+with these 2 hooks no need for connect(mapStateToProps, mapDispatchToProps)
+
+
+6) thunkapi.js
+import axios from 'axios';
+
+import {fetchUsersRequest, fetchUsersSuccess, fetchUsersFailure} from './ActionCreators';
+
+export const fetchUsers = () => {
+    return function(dispatch) {
+        dispatch(fetchUsersRequest());
+        axios.get("https://jsonplaceholder.typicode.com/users/")
+        .then(response => {
+            dispatch(fetchUsersSuccess(response.data));
+        })
+        .catch(error => {
+            dispatch(fetchUsersFailure(error.message));
+        })
+    }
+}
+
+
+7) App.js
+
+import {createStore, applyMiddleware, compose} from 'redux';
+import thunk from 'redux-thunk';
+import {userReducer} from './redux/Reducers';
+
+import {Provider} from 'react-redux';
+import Users from './Users';
+//https://medium.com/@ethan.reid.roberts/stuck-in-the-middleware-with-you-c667acb01fc
+let store = 
+  createStore(userReducer, compose(applyMiddleware(thunk), window.__REDUX_DEVTOOLS_EXTENSION__()));
+
+function App() {
+  return (
+    <Provider store={store}>
+        <h1> thunk example</h1>
+        <Users />
+    </Provider>
+  );
+}
+
+export default App;
+
+
+8) Users.js
+
+import {fetchUsers} from './redux/thunkapi';
+import {useSelector, useDispatch} from 'react-redux';
+import React from 'react';
+
+export default function Users() {
+    //The selector is approximately equivalent to the mapStateToProps argument to connect conceptually. 
+    const state = useSelector(state => state); 
+    console.log(state);
+    // mapDispatchToProps
+    const dispatch = useDispatch();
+    let {loading, error, users} = state;
+
+    React.useEffect(() => {
+        dispatch(fetchUsers());
+    }, []);
+
+    return <>
+            {
+                loading ? <h1> Loading....</h1> : users.map(user => {
+                    return <h1 key={user.id}>{user.name}</h1>
+                })
+            }
+    </>
+}
+
+============
+ 
+Thunk and Redux in mini-project
+
+ 
