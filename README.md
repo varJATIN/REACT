@@ -65,7 +65,7 @@ x = 24; // invalid
 ----------------------------
 
 first.js
-
+''''
 var g = 100; // global variable
 
 function doTask() {
@@ -80,7 +80,7 @@ function doTask() {
 
 doTask();
 console.log(g, a, b, c);
-
+''''
 
 JavaScript runs on JS engines
 
