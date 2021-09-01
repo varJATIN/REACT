@@ -99,20 +99,20 @@ JS engine internals: ==> Execution context ==> Global Context.png
 
 ================================
 
-function add(x, y) {
-	return x + y;
-}
+	function add(x, y) {
+		return x + y;
+	}
 
-console.log(add(4,5)); // 9
-
-
-
-function add(x, y) {
-	console.log(x + y ); // 9
-}
+	console.log(add(4,5)); // 9
 
 
-let res = add(4, 5); 
+
+	function add(x, y) {
+		console.log(x + y ); // 9
+	}
+
+
+	let res = add(4, 5); 
 
 What is the value of "res" ? // undefined
 
@@ -120,12 +120,12 @@ What is the value of "res" ? // undefined
 
 Semi-colon insertions ==> tokens, keywords, AST 
 
-function add(x, y) {
-	return
-		x + y;
-}
+	function add(x, y) {
+		return
+			x + y;
+	}
 
-console.log(add(4,5)); // ? ==> undefined
+	console.log(add(4,5)); // ? ==> undefined
 
 ============================================
 
@@ -133,31 +133,31 @@ JS stack, callback queue, Web Api, event loop
 
 timed() and clicked() are callback functions:
 
-console.log("Hello");
+	console.log("Hello");
 
-setInterval(function timed() {
-	console.log("Timed!!!");
-}, 100);
+	setInterval(function timed() {
+		console.log("Timed!!!");
+	}, 100);
 
-$("#btn").click(function clicked() {
-	console.log("clicked!!!");
-});
+	$("#btn").click(function clicked() {
+		console.log("clicked!!!");
+	});
 
-console.log("Bye!!!");
+	console.log("Bye!!!");
 
 =========================================
 
 In JavaScript functions are data types
 
-var name = "Shyam";
+	var name = "Shyam";
 
-var fn = function() {}; 
+	var fn = function() {}; 
 
-// anonymous function
+	// anonymous function
 
-setInterval(function () {
-	console.log("Timed!!!");
-}, 100);
+	setInterval(function () {
+		console.log("Timed!!!");
+	}, 100);
 
 ==============================
 
@@ -172,7 +172,8 @@ Account instance/object will have "balance" ==> state; credit() and debit() are 
 
 1) Object function to create a Object
 
-var obj = new Object();
+`var obj = new Object();
+`
 
 "new" keyword to create object
 
@@ -180,27 +181,26 @@ Object(); // calling a function which exectes on "Global Context"
 
 new Object(); // create its own context [ it gets its own "this" pointer; won't take "this ==> window"]
 
-obj.x = 10; //state
-obj.y = 15; // state
+	obj.x = 10; //state
+	obj.y = 15; // state
 
-obj.print = function() {
-	console.log(this.x + "," + this.y);
-}
+	obj.print = function() {
+		console.log(this.x + "," + this.y);
+	}
 
 
-obj.print(); // context is "obj"; within "print() "this" refers to "obj"
+	obj.print(); // context is "obj"; within "print() "this" refers to "obj"
 
 2) Function constructor pattern
 
-function Person(id, name) {
+	function Person(id, name) {
 	this.id = id;
 	this.name = name;
-}
+	}
 
+	var p1 = new Person(10, "Smitha");
 
-var p1 = new Person(10, "Smitha");
-
-var p2 = new Person(34, "Hema");
+	var p2 = new Person(34, "Hema");
 
 ======================
 
@@ -250,11 +250,11 @@ var add = new Function("x", "y", "return x + y"); // inherits from "Object"
 	XML vs JSON
 
 	// singleton
-	var product = {
+	``var product = {
 		"id": 1,
 		"name" : "iPhone",
 		"price" : 89000.00
-	};
+	};``
 
 	key / instance variable / field ==> string
 	value can be string, number, boolean, function, array, undefined, null, object
@@ -262,14 +262,14 @@ var add = new Function("x", "y", "return x + y"); // inherits from "Object"
 
 array of products:
 
-	[	
+````[	
     	{"id":1,"name":"iPhone","price":124447.44,"category" : "mobile"},
     	{"id":2,"name":"Onida","price":4444.44,"category" : "tv"},
     	{"id":3,"name":"OnePlus 6","price":98444.44,"category" : "mobile"},
     	{"id":4,"name":"HDMI connector","price":2444.00,"category" : "computer"},
       	{"id":5,"name":"Samsung","price":68000.00,"category" : "tv"}
     ]
-
+````
 =====================================
 
 * bind() method
@@ -343,36 +343,37 @@ High Order function ==> HOF
 * functions which accept other functions as arguments ==> all callbacks are implemented
 * functions which return a function
 * ==> treat functions as first class members just like primitive and object
+````
+	var data = [4,5,7,8,2,55];
 
-var data = [4,5,7,8,2,55];
+	var products = [
+		{"id":1,"name":"iPhone","price":124447.44,"category" : "mobile"},
+		{"id":2,"name":"Onida","price":4444.44,"category" : "tv"},
+		{"id":3,"name":"OnePlus 6","price":98444.44,"category" : "mobile"},
+		{"id":4,"name":"HDMI connector","price":2444.00,"category" : "computer"},
+		{"id":5,"name":"Samsung","price":68000.00,"category" : "tv"}
+	  ]
+	for(var i = 0; i < data.length; i++) {
+		console.log(data[i]);
+	}
 
-var products = [	
-    	{"id":1,"name":"iPhone","price":124447.44,"category" : "mobile"},
-    	{"id":2,"name":"Onida","price":4444.44,"category" : "tv"},
-    	{"id":3,"name":"OnePlus 6","price":98444.44,"category" : "mobile"},
-    	{"id":4,"name":"HDMI connector","price":2444.00,"category" : "computer"},
-      	{"id":5,"name":"Samsung","price":68000.00,"category" : "tv"}
-  ]
-for(var i = 0; i < data.length; i++) {
-	console.log(data[i]);
-}
-
-for(var i = 0; i < data.length; i++) {
-	alert(data[i]);
-}
-
+	for(var i = 0; i < data.length; i++) {
+		alert(data[i]);
+	}
+````
 --
 HOF:
-function forEach(elems, action) {
-	for(var i = 0; i < elems.length; i++) {
-		action(elems[i]);
+
+	function forEach(elems, action) {
+		for(var i = 0; i < elems.length; i++) {
+			action(elems[i]);
+		}
 	}
-}
 
 
-forEach(data, console.log);
-forEach(products, console.log);
-forEach(data, alert);
+	forEach(data, console.log);
+	forEach(products, console.log);
+	forEach(data, alert);
 
 ==========================================
 
@@ -389,11 +390,11 @@ Commonly used HOF:
  
 HOF ==> functions returning a function ==> Closure
 
-function greeting(msg) {
-	return function(name) {
-		return msg + " " + name;
+	function greeting(msg) {
+		return function(name) {
+			return msg + " " + name;
+		}
 	}
-}
 
 // closure is a concept where a returned function can access all the members of outer function
 
@@ -458,28 +459,28 @@ doTask();
 ====================================
 
 2) Arrow functions
-
+````
 let add = (x, y) => {
 	return x + y;
 }
-
+````
 or
 
-let add = (x, y) => x + y;
+	let add = (x, y) => x + y;
 
- var evens = filter(data, function (d) { return d % 2 === 0; });
+	var evens = filter(data, function (d) { return d % 2 === 0; });
 
- var evens = filter(data, d => d % 2 === 0);
+	var evens = filter(data, d => d % 2 === 0);
  
 
 Default values:
 
-let add = (x = 0, y = 0, z = 0) => x + y + z;
+	let add = (x = 0, y = 0, z = 0) => x + y + z;
 
-add();
-add(10);
-add(4,5);
-add(5,2,1);
+	add();
+	add(10);
+	add(4,5);
+	add(5,2,1);
 
 ==========================
 
@@ -487,33 +488,37 @@ add(5,2,1);
 
 3.1) array
 
-var colors = ["red","green","blue","orange"];
+	var colors = ["red","green","blue","orange"];
 
 ES5 way:
-var r = colors[0];
-var g = colors[1];
+
+	var r = colors[0];
+	var g = colors[1];
 
 ES6 way:
 
-var [r, g, ...other] = colors;
+	var [r, g, ...other] = colors;
 
-console.log(r); // red
-console.log(other); // ["blue","orange"]
+	console.log(r); // red
+	console.log(other); // ["blue","orange"]
 
 
 3.2) object
-var p = {"id":1,"name":"iPhone","price":124447.44,"category" : "mobile"};
+	
+	var p = {"id":1,"name":"iPhone","price":124447.44,"category" : "mobile"};
 
 ES 5 way:
-console.log(p.name);
+
+	console.log(p.name);
 
 var {name, price} = p;
-console.log(name); // iPhone
+
+	console.log(name); // iPhone
 
 ========================
 
 4) Clone
-
+````
 var p = {"id":1,"name":"iPhone","price":124447.44,"category" : "mobile"};
 
 var ref = p; // reference
@@ -521,27 +526,27 @@ var ref = p; // reference
 ref.name = "OnePlus";
 
 p.name ==> "OnePlus";
-
+````
 Clone
-
+````
 var copy = {...p};
 copy.name = "Samsung";
 
 var data = [6,8,1];
 
 var copyelem = [...data]; // copy
-
+````
 ===================================================
 
 5) Promise API
-	A promise represents the eventual result of an asynchronous operation. ==> Future
+A promise represents the eventual result of an asynchronous operation. ==> Future
 
-	Synchronous function:
+Synchronous function:
 
-	var res = doTask(); // blocking code ==> execute on stack
-	console.log(res); // line executes only after doTask() complete
+var res = doTask(); // blocking code ==> execute on stack
+console.log(res); // line executes only after doTask() complete
 
-	If doTask() was returning a eventual result [resolved / rejected] ==> Promise
+If doTask() was returning a eventual result [resolved / rejected] ==> Promise
 
 	doTask().then(
 		(data) => code for resolved,
@@ -551,10 +556,10 @@ var copyelem = [...data]; // copy
 	console.log("done"); // doesn't wait for promise to complete
 
 
-fetch("https://jsonplaceholder.typicode.com/users")
-	.then(response => response.json())
-	.then(data => console.log(data))
-	.catch( err => console.log(err));
+	fetch("https://jsonplaceholder.typicode.com/users")
+		.then(response => response.json())
+		.then(data => console.log(data))
+		.catch( err => console.log(err));
 
 =====================	
 
@@ -573,23 +578,23 @@ Promise.any() ==> use case ==> multiple servers have same data [ CDN ] ==> inter
 
 7) Generator
 	are functions which can return multiple values 
+````javascript
+function* mySaga() {
+	console.log("task 1");
+	console.log("task 2");
 
-	function* mySaga() {
-		console.log("task 1");
-		console.log("task 2");
+	yield "first output";  
 
-		yield "first output";  
-		
-		console.log("task 3");
-		console.log("task 4");
-		console.log("task 5");
+	console.log("task 3");
+	console.log("task 4");
+	console.log("task 5");
 
-		yield 100; // return 
+	yield 100; // return 
 
-		console.log("task 6");
+	console.log("task 6");
 
-		yield "bye!!"
-	}
+	yield "bye!!"
+}
 
 	var iter = mySaga();
 	iter.next(); {done:false, value: "first output"}
@@ -599,26 +604,24 @@ Promise.any() ==> use case ==> multiple servers have same data [ CDN ] ==> inter
 	iter.next();  {done:false, value: "bye"}
 
 	iter.next(); { done: true, value : undefined}
-
+````
 ============
 
 8) Class and ES 6 Module ==> cover along with Webpack
 
 9) template literal ==> string
-
-var name = "Harry";
-var program = "React";
-
-var msg = `<div class="card">
-
-Hello ${name}
-Welcome to ${program}
-</div>
-`;
-
+````
+    var name = "Harry";
+    var program = "React";
+    var msg = `<div class="card">
+        Hello ${name}
+	Welcome to ${program}
+	</div>
+	`;
+````
 Traditional ES 5 way:
 
-msg = "<div class='card'> Hello" + name + "Welcome to " + "program" + "</div>"
+	msg = "<div class='card'> Hello" + name + "Welcome to " + "program" + "</div>"
 
 =================================
 
@@ -630,43 +633,42 @@ IIFE (Immediately Invoked Function Expression) is a JavaScript function that run
 	// code
 })();
 
+	let productModule = (function() {
+		var data = 100; // private within the module
+		function doTask() {
+			console.log(data);
+			someTask();
+		}
 
-let productModule = (function() {
-	var data = 100; // private within the module
-	function doTask() {
-		console.log(data);
-		someTask();
-	}
+		function someTask() { // private
+			console.log("some task!!!");
+		}
+		return {
+			doTask
+		}
+	})();
 
-	function someTask() { // private
-		console.log("some task!!!");
-	}
-	return {
-		doTask
-	}
-})();
+	productModule.doTask(); // 100
 
-productModule.doTask(); // 100
-
-productModule.data; // not visible
-productModule.someTask(); // not visible
+	productModule.data; // not visible
+	productModule.someTask(); // not visible
 
 
-let orderModule =  (function() {
-	var data = 999; // private within the module
-	function print() {
-		console.log(data);
-	}
-	function doTask() {
-	}
-	return {
-		printInfo : print,
-		doTask 
-	}
-)();
+	let orderModule =  (function() {
+		var data = 999; // private within the module
+		function print() {
+			console.log(data);
+		}
+		function doTask() {
+		}
+		return {
+			printInfo : print,
+			doTask 
+		}
+	)();
 
-orderModule.printInfo(); // 999
-orderModule.doTask();
+	orderModule.printInfo(); // 999
+	orderModule.doTask();
 
 
 =============================
@@ -677,12 +679,13 @@ DOM ==> Document Object Model ==> language independent tree of objects created f
 document is the root object
 
 1) access dom element using ID
+````
 <div id="tmpl-header"></div>
 
 document.getElementById("tmpl-header");
 
 document.getElementById("tmpl-header").remove()
-
+````
 2) access dom element by tag name
 
 <section></section>
