@@ -821,15 +821,14 @@ load	= The event occurs when an object has loaded [ document loaded we need to p
 
 
 
-
 Low Level events:
-keydown	The event occurs when the user is pressing a key
-keyup	The event occurs when the user releases a key
-keypress	The event occurs when the user presses a key
+keydown	= The event occurs when the user is pressing a key
+keyup	= The event occurs when the user releases a key
+keypress= The event occurs when the user presses a key
 
-mousedown	= The event occurs when the user presses a mouse button over an element
-mouseup	= The event occurs when a user releases a mouse button over an element
-mouseover	= The event occurs when the pointer is moved onto an element, or onto one of its children
+mousedown= The event occurs when the user presses a mouse button over an element
+mouseup	 = The event occurs when a user releases a mouse button over an element
+mouseover= The event occurs when the pointer is moved onto an element, or onto one of its children
 mouseenter =	The event occurs when the pointer is moved onto an element
 mouseleave =	The event occurs when the pointer is moved out of an element
 
@@ -840,14 +839,15 @@ target.addEventListener() sets up a function that will be called whenever the sp
 
 =======================
 
-jQuery Document Ready function
+##### jQuery Document Ready function
 
 // this function gets called only after DOM tree is created
  ==> it's a callback gets invoked when document .onload event is triggred
-
+````javascript
 $(function() {
-	// event handling code
+// event handling code
 });
+````
 
 ===========
 
