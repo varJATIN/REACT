@@ -806,26 +806,22 @@ Event Handling: ==> when an event occurs we want a callback to execute [ handler
 
 DOM elements generate events
 
-*click :	The event occurs when the user clicks on an element
-*change :	The event occurs when the content of a form element, the selection, or the checked state have changed (for input, select, and <textarea>)	
-*focus	: The event occurs when an element gets focus
-*blur :	The event occurs when an element loses focus
-
-load	= The event occurs when an object has loaded [ document loaded we need to perfom some task]
+* click : The event occurs when the user clicks on an element
+* change: The event occurs when the content of a form element, the selection, or the checked state have changed (for input, select, and <textarea>)	
+* focus	: The event occurs when an element gets focus
+* blur :  The event occurs when an element loses focus
+* load	: The event occurs when an object has loaded [ document loaded we need to perfom some task]
 
 Low Level events:
 
-keydown	= The event occurs when the user is pressing a key
-
-keyup	= The event occurs when the user releases a key
-
-keypress= The event occurs when the user presses a key
-
-mousedown= The event occurs when the user presses a mouse button over an element
-mouseup	 = The event occurs when a user releases a mouse button over an element
-mouseover= The event occurs when the pointer is moved onto an element, or onto one of its children
-mouseenter =	The event occurs when the pointer is moved onto an element
-mouseleave =	The event occurs when the pointer is moved out of an element
+* keydown= The event occurs when the user is pressing a key
+* keyup	 = The event occurs when the user releases a key
+* keypress = The event occurs when the user presses a key
+* mousedown= The event occurs when the user presses a mouse button over an element
+* mouseup  = The event occurs when a user releases a mouse button over an element
+* mouseover= The event occurs when the pointer is moved onto an element, or onto one of its children
+* mouseenter =	The event occurs when the pointer is moved onto an element
+* mouseleave =	The event occurs when the pointer is moved out of an element
 
 =======
 
@@ -834,7 +830,7 @@ target.addEventListener() sets up a function that will be called whenever the sp
 
 =======================
 
-##### jQuery Document Ready function
+#### jQuery Document Ready function
 
 // this function gets called only after DOM tree is created
  ==> it's a callback gets invoked when document .onload event is triggred
@@ -875,7 +871,7 @@ $("p"); ==> tag name
  =================================
 
 
- AJAX ==> Asynchronous JavaScript API for XML / JSON
+#### AJAX ==> Asynchronous JavaScript API for XML / JSON
 
  Ajax allows you to update parts of the DOM of an HTML page instead without the need for a full page refresh. 
 
@@ -908,9 +904,8 @@ $(document).on("click", ".del", () => {
 
 ========
 
-Arrow function context:
-
- 
+#### Arrow function context:
+````javascrpit
 let product = {
 	"name": "TestProduct",
 	 "getName" : function() {
@@ -919,9 +914,9 @@ let product = {
 } 
 
 product.getName();
-
+````
 ====
-
+````
 let product = {
 	"name": "TestProduct",
 	 "getName" : () => {
@@ -930,21 +925,19 @@ let product = {
 } 
 
 product.getName(); // gets the context from execution scope
-
+````
 =========
 
-
+````
 let product = {
 	"name": "TestProduct",
-	 "getName" : function() {
-	 						setTimeout(() => {
-	 								console.log(this.name);
-						}, 100)
+	 "getName" : function() {setTimeout(() => 
+		    console.log(this.name), 100)
 	}
 } 
 
 product.getName();
-
+````
 ==============================
 
 DOM and jQuery
