@@ -806,24 +806,19 @@ Event Handling: ==> when an event occurs we want a callback to execute [ handler
 
 DOM elements generate events
 
-click :	The event occurs when the user clicks on an element
-
-change :	The event occurs when the content of a form element, the selection, or the checked state have changed 
-				(for input, select, and <textarea>)
-
-focus	= The event occurs when an element gets focus
-
-
-
-blur =	The event occurs when an element loses focus
+*click :	The event occurs when the user clicks on an element
+*change :	The event occurs when the content of a form element, the selection, or the checked state have changed (for input, select, and <textarea>)	
+*focus	: The event occurs when an element gets focus
+*blur :	The event occurs when an element loses focus
 
 load	= The event occurs when an object has loaded [ document loaded we need to perfom some task]
 
-
-
 Low Level events:
+
 keydown	= The event occurs when the user is pressing a key
+
 keyup	= The event occurs when the user releases a key
+
 keypress= The event occurs when the user presses a key
 
 mousedown= The event occurs when the user presses a mouse button over an element
