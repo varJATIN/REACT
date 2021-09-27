@@ -1905,7 +1905,7 @@ web development assignment.zip
 place images in "public" folder
 <img src={{recipe.pic}} className="img" />
 
-==========================================
+============================================================================
 
 1) Component LifeCycle
 
@@ -2144,8 +2144,8 @@ Day 5
 React Context ==> React 16.3 version
 
 styled-components
-
-const Button = styled.button`
+```React
+const Button = styled.button
   /* Adapt the colors based on primary prop */
   background: ${props => props.primary ? "palevioletred" : "white"};
   color: ${props => props.primary ? "white" : "palevioletred"};
@@ -2154,7 +2154,7 @@ const Button = styled.button`
   padding: 0.25em 1em;
   border: 2px solid palevioletred;
   border-radius: 3px;
-`;
+;
 
 render(
   <div>
@@ -2162,7 +2162,7 @@ render(
     <Button primary>Primary</Button>
   </div>
 );
-
+```
 ===========================
 
 npm i react-router-dom
@@ -2280,11 +2280,14 @@ Complete "increment() and decrement()"
 1) Context.js add these 2 and expose
 2) Cartlist ==> productContext to consume and assign to Button
 
-======================================
+===============================================================
+	
 JSON Server : full fake REST API with zero coding
 https://github.com/typicode/json-server
 
+
 db.json
+```json
 {
   "posts": [
     { "id": 1, "title": "json-server", "author": "typicode" }
@@ -2294,7 +2297,8 @@ db.json
   ],
   "profile": { "name": "typicode" }
 }
-
+```
+	
 CRUD operations supports
 
 http://server/posts
@@ -2325,7 +2329,7 @@ headers: {'Authorization': 'Bearer: tokenvalue'} ==> JWT Token
 * React Hooks
 * State Management using Redux
 
-======================================
+=====================================================================
 
 Day 6
 
